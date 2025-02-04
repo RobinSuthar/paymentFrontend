@@ -3,8 +3,9 @@ import React from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
-export function SignupFormDemo() {
+export function SigninFormDemo() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -19,21 +20,11 @@ export function SignupFormDemo() {
       </p>
 
       <form className="my-8" onSubmit={handleSubmit}>
-        <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-          <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
-          </LabelInputContainer>
-          <LabelInputContainer>
-            <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
-          </LabelInputContainer>
-        </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input
             id="email"
-            placeholder="firstruleoffightc@fc.com"
+            placeholder="firstruleoffightclub@fc.com"
             type="email"
           />
         </LabelInputContainer>
@@ -49,7 +40,7 @@ export function SignupFormDemo() {
             console.log("Button Clicked");
           }}
         >
-          Sign up
+          <Link to={"/dashboard"}>Sign in</Link>
           <BottomGradient />
         </button>
 

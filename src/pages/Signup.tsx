@@ -2,7 +2,7 @@ import { SignupFormDemo } from "@/components/SignupForDemo";
 
 const Signup = () => {
   return (
-    <div>
+    <div className="mt-16">
       <SignupFormDemo></SignupFormDemo>
     </div>
   );

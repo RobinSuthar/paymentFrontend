@@ -1,7 +1,11 @@
-import React from "react";
+import { CardWithForm } from "@/components/CardWithFormDemo";
 
 const Sendpage = () => {
-  return <div>Sendpage</div>;
+  return (
+    <div>
+      <CardWithForm></CardWithForm>
+    </div>
+  );
 };
 
 export default Sendpage;

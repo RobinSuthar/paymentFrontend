@@ -1,22 +1,33 @@
 import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
-import image from "../components/Images/home.png";
+
+import { Link } from "react-router-dom";
+
+export function ButtonDemo() {
+  return (
+    <div className="border-2 p-3   rounded-xl">
+      <Link to={"/send"}> Send Money </Link>
+    </div>
+  );
+}
 const Dashboard = () => {
   return (
-    <div className="border-2 border-gray mt-12">
-      <div>
+    <div className="p-4 ">
+      <div className=" border-gray mt-12 rounded-lg">
         <div>
-          <p>Your Balance is : 10,000</p>
+          <div className=" flex justify-center text-2xl gap-96 mt-3">
+            <p className="mr-72"> Your Balance 10000</p>
+
+            <p className="ml-72">Full Name</p>
+          </div>
+          <div>
+            <PlaceholdersAndVanishInputDemo></PlaceholdersAndVanishInputDemo>
+          </div>
         </div>
+        <br />
         <div>
-          <p>User's</p>
-          <PlaceholdersAndVanishInputDemo></PlaceholdersAndVanishInputDemo>
-          <button>Copy Link</button>
-        </div>
-      </div>
-      <br />
-      <div>
-        <div>
-          <ShowUser></ShowUser>
+          <div>
+            <ShowUser></ShowUser>
+          </div>
         </div>
       </div>
     </div>
@@ -26,15 +37,17 @@ const Dashboard = () => {
 function ShowUser() {
   return (
     <div className="flex justify-center gap-96">
-      <div className="flex ">
+      <div className="flex text-xl ">
         <div>
-          <img className="h-12 w -12" src={image} alt="" />
+          <p>R</p>
         </div>
         <div>
-          <div className="mt-3">Name</div>
+          <div className=" ml-14">Name</div>
         </div>
       </div>
-      <div className="ml-96 mt-3">can View</div>
+      <div className="ml-96 mt-3">
+        <ButtonDemo></ButtonDemo>
+      </div>
     </div>
   );
 }

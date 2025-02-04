@@ -8,6 +8,7 @@ import { ThemeProvider } from "./components/theme-provider.js";
 import Navbar from "./components/component/Navbar.js";
 import Signup from "./pages/Signup.js";
 import Dashboard from "./pages/Dashboard.js";
+import Docs from "./pages/Docs.js";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/send" element={<Sendpage />} />
+          <Route path="/docs" element={<Docs />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

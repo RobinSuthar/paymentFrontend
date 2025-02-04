@@ -1,27 +1,28 @@
-"use client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Lightingspeed from "./components/component/Lightingspeed";
-import { FloatingNavDemo } from "./components/FloatingNavDemo";
-import { MeteorsDemo } from "./components/MeteorsDemo";
-import { MeteorsDemo2 } from "./components/MeteorsDemo2";
-import { MeteorsDemo3 } from "./components/MeterorsDemo3";
-import { ModeToggle } from "./components/mode-toggle";
-
-import { ThemeProvider } from "./components/theme-provider";
+import Homepage from "./pages/Homepage.js";
+import Signin from "./pages/Signin.js";
+import Signup from "./pages/Signup.js";
+import Sendpage from "./pages/Sendpage.js";
+import { ThemeProvider } from "./components/theme-provider.js";
+import { NavigationMenuDemo } from "./components/NavigationMenuDemo.js";
+import { ModeToggle } from "./components/mode-toggle.js";
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <ModeToggle></ModeToggle>
-      <div className="mb-24">
-        <FloatingNavDemo></FloatingNavDemo>
-      </div>
-      <Lightingspeed></Lightingspeed>
-      <div className="flex md:flex-row flex-col justify-center m-6 gap-9 ">
-        <MeteorsDemo></MeteorsDemo>
-        <MeteorsDemo2></MeteorsDemo2>
-        <MeteorsDemo3></MeteorsDemo3>
-      </div>
+    <ThemeProvider>
+      <BrowserRouter>
+        <div className="flex justify-center mt-6">
+          <NavigationMenuDemo></NavigationMenuDemo>
+          <ModeToggle></ModeToggle>
+        </div>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="/signin" element={<Signin />} />
+          <Route path="singup" element={<Signup />} />
+          <Route path="send" element={<Sendpage />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

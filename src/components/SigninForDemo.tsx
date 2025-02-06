@@ -5,6 +5,7 @@ import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "/api/v1/user/signin";
 
 export function SigninFormDemo() {
   const [signedIn, setSignedin] = useState(false);
@@ -52,13 +53,10 @@ export function SigninFormDemo() {
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
           onClick={async () => {
-            const repose = await axios.post(
-              "http://localhost:3002/api/v1/user/signin",
-              {
-                username: email,
-                password: password,
-              }
-            );
+            const repose = await axios.post(BACKEND_URL, {
+              username: email,
+              password: password,
+            });
             alert(repose.data.msg);
             if (repose.data.msg == "Logged in Successfully") {
               navigate("/dashboard");

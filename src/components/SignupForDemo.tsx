@@ -4,6 +4,7 @@ import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
 import axios from "axios";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL + "/api/v1/user/signup";
 
 export function SignupFormDemo() {
   const [email, setEmail] = useState("");
@@ -90,15 +91,12 @@ export function SignupFormDemo() {
           type="submit"
           onClick={async () => {
             try {
-              const response = await axios.post(
-                "http://localhost:3002/api/v1/user/signup",
-                {
-                  firstName: firstname,
-                  lastName: lastname,
-                  userName: email,
-                  password: password,
-                }
-              );
+              const response = await axios.post(BACKEND_URL, {
+                firstName: firstname,
+                lastName: lastname,
+                userName: email,
+                password: password,
+              });
               localStorage.setItem("firstname", firstname);
               localStorage.setItem("token", response.data.token);
               firstNameref.current.value = "";

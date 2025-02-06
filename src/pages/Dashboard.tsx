@@ -1,9 +1,8 @@
-import { PlaceholdersAndVanishInputDemo } from "@/components/PlaceholdersAndVanishInputDemo";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
-
 import { Link } from "react-router-dom";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export function ButtonDemo({ id, firstName }) {
   return (
@@ -18,7 +17,7 @@ const Dashboard = () => {
   const [filter, setFilter] = useState("");
   useEffect(() => {
     axios
-      .get("http://localhost:3002/api/v1/user/bulk?filter=" + filter)
+      .get(`${BACKEND_URL}/api/v1/user/bulk?filter=` + filter)
       .then((response) => {
         setUsers(response.data.user);
       });
@@ -26,7 +25,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3002/api/v1/account/balance", {
+      .get(`${BACKEND_URL}/api/v1/account/balance`, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -55,14 +54,14 @@ const Dashboard = () => {
     <div className="p-4 ">
       <div className=" border-gray mt-12 rounded-lg">
         <div>
-          <div className=" flex justify-center text-2xl gap-96 mt-3">
-            <p className="mr-72"> Your Balance $: {Math.round(balance)}</p>
+          <div className=" flex justify-center text-xl md:text-2xl gap-9 md:gap-96  mt-3">
+            <p className=""> Your Balance $: {Math.round(balance)}</p>
 
-            <p className="ml-72">{localStorage.getItem("firstname")}</p>
+            <p className="">{localStorage.getItem("firstname")}</p>
           </div>
           <div>
             <div className=" flex flex-col justify-center  items-center px-4">
-              <h2 className=" mb-6 text-xl text-center sm:text-2xl dark:text-white text-black">
+              <h2 className=" mt-8 mb-6 text-base md:text-xl text-center sm:text-2xl dark:text-white text-black">
                 User's
               </h2>
               <PlaceholdersAndVanishInput
@@ -76,23 +75,23 @@ const Dashboard = () => {
         <br />
         <div>
           <div>
-            <div className="flex justify-center gap-96">
+            <div className="flex justify-center  ">
               <div className="flex text-xl ">
                 <div>
-                  <div className=" ml-14">
+                  <div className="  md:ml-14">
                     {user.map((Each) => {
                       return (
-                        <div key={Each._id}>
+                        <div key={Each._id} className="">
                           <div
                             key={Math.random()}
-                            className="flex justify-center gap-80"
+                            className="flex justify-center md:gap-96 "
                           >
                             <div className="flex ">
                               <div className=" mt-7 mr-20 ">
                                 {Each.firstName}
                               </div>
                             </div>
-                            <div className="ml-96">
+                            <div className="">
                               <ButtonDemo
                                 id={Each._id}
                                 firstName={Each.firstName}

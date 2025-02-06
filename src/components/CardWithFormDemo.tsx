@@ -10,14 +10,16 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export function CardWithForm() {
   const [searchParams] = useSearchParams();
   const id = searchParams.get("id");
   const name = searchParams.get("name");
   const [amount, setAmount] = useState(0);
+  const amountRef = useRef(amount);
   return (
     <div className="flex justify-center mt-32">
       <Card className="w-[450px] h-[250px]">
@@ -31,6 +33,7 @@ export function CardWithForm() {
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="name">Amount</Label>
                 <Input
+                  ref={amountRef}
                   onChange={(e) => {
                     setAmount(e.target.value);
                   }}
@@ -45,8 +48,8 @@ export function CardWithForm() {
           <Link to={"/dashboard"}>Cancel</Link>
           <Button
             onClick={async () => {
-              await axios.post(
-                "http://localhost:3002/api/v1/account/transfer",
+              const reposne = await axios.post(
+                `${BACKEND_URL}/api/v1/account/transfer`,
                 {
                   amount: amount,
                   to: id,
@@ -57,6 +60,9 @@ export function CardWithForm() {
                   },
                 }
               );
+
+              alert(reposne.data.msg);
+              amountRef.current.value = "";
             }}
           >
             Send{" "}

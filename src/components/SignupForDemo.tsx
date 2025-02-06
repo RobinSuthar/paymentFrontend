@@ -15,10 +15,10 @@ export function SignupFormDemo() {
 
   const [password, setPassword] = useState("");
 
-  const firstNameref = useRef(firstname);
-  const lastNameref = useRef(lastname);
-  const emailref = useRef(email);
-  const passwordref = useRef(password);
+  const firstNameref = useRef<HTMLInputElement>(null);
+  const lastNameref = useRef<HTMLInputElement>(null);
+  const emailref = useRef<HTMLInputElement>(null);
+  const passwordref = useRef<HTMLInputElement>(null);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -99,10 +99,11 @@ export function SignupFormDemo() {
               });
               localStorage.setItem("firstname", firstname);
               localStorage.setItem("token", response.data.token);
-              firstNameref.current.value = "";
-              lastNameref.current.value = "";
-              emailref.current.value = "";
-              passwordref.current.value = "";
+              if (firstNameref.current) firstNameref.current.value = "";
+              if (lastNameref.current) lastNameref.current.value = "";
+              if (emailref.current) emailref.current.value = "";
+              if (passwordref.current) passwordref.current.value = "";
+
               alert(response.data.msg);
             } catch (err) {
               console.log(err);

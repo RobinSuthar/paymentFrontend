@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import axios from "axios";
-import { useRef, useState } from "react";
+import React, { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -19,7 +19,7 @@ export function CardWithForm() {
   const id = searchParams.get("id");
   const name = searchParams.get("name");
   const [amount, setAmount] = useState(0);
-  const amountRef = useRef(amount);
+  const amountRef = React.useRef<HTMLInputElement>(null);
   return (
     <div className="flex justify-center mt-32">
       <Card className="w-[450px] h-[250px]">
@@ -35,7 +35,7 @@ export function CardWithForm() {
                 <Input
                   ref={amountRef}
                   onChange={(e) => {
-                    setAmount(e.target.value);
+                    setAmount(Number(e.target.value));
                   }}
                   id="name"
                   placeholder="$"
@@ -62,7 +62,9 @@ export function CardWithForm() {
               );
 
               alert(reposne.data.msg);
-              amountRef.current.value = "";
+              if (amountRef.current) {
+                amountRef.current.value = "";
+              }
             }}
           >
             Send{" "}

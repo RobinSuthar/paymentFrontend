@@ -3,8 +3,17 @@ import { useEffect, useState } from "react";
 import { PlaceholdersAndVanishInput } from "../components/ui/placeholders-and-vanish-input";
 import { Link } from "react-router-dom";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+interface ButtonDemoProps {
+  id: string;
+  firstName: string;
+}
 
-export function ButtonDemo({ id, firstName }) {
+interface User {
+  _id: string;
+  firstName: string;
+}
+
+export function ButtonDemo({ id, firstName }: ButtonDemoProps) {
   return (
     <div className="border-2 p-3  m-3 rounded-xl">
       <Link to={`/send?id=${id}&name=${firstName}`}> Send Money </Link>
@@ -12,9 +21,10 @@ export function ButtonDemo({ id, firstName }) {
   );
 }
 const Dashboard = () => {
-  const [user, setUsers] = useState([]);
-  const [balance, setBalance] = useState([]);
-  const [filter, setFilter] = useState("");
+  const [user, setUsers] = useState<User[]>([]);
+  const [balance, setBalance] = useState<number>(0);
+
+  const [filter, setFilter] = useState<string>("");
   useEffect(() => {
     axios
       .get(`${BACKEND_URL}/api/v1/user/bulk?filter=` + filter)

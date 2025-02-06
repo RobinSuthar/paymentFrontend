@@ -3,13 +3,14 @@ import React, { useState } from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export function SigninFormDemo() {
   const [signedIn, setSignedin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -58,8 +59,9 @@ export function SigninFormDemo() {
                 password: password,
               }
             );
-
+            alert(repose.data.msg);
             if (repose.data.msg == "Logged in Successfully") {
+              navigate("/dashboard");
               setSignedin(true);
             } else {
               setSignedin(false);

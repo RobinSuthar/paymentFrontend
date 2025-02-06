@@ -15,18 +15,18 @@ export function NavigationMenuDemo() {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <Link to="/github">
+          <a href="https://github.com/RobinSuthar">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               GitHub
             </NavigationMenuLink>
-          </Link>
+          </a>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <Link to="/twitter">
+          <a href="https://x.com/RobinSutharSd">
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Twitter
             </NavigationMenuLink>
-          </Link>
+          </a>
         </NavigationMenuItem>
         <NavigationMenuItem>
           <Link to="/docs">

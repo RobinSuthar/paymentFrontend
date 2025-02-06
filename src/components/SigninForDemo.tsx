@@ -1,11 +1,15 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export function SigninFormDemo() {
+  const [signedIn, setSignedin] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -23,6 +27,9 @@ export function SigninFormDemo() {
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             id="email"
             placeholder="firstruleoffightclub@fc.com"
             type="email"
@@ -30,17 +37,41 @@ export function SigninFormDemo() {
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            id="password"
+            placeholder="••••••••"
+            type="password"
+          />
         </LabelInputContainer>
 
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
-          onClick={() => {
-            console.log("Button Clicked");
+          onClick={async () => {
+            const repose = await axios.post(
+              "http://localhost:3002/api/v1/user/signin",
+              {
+                username: email,
+                password: password,
+              }
+            );
+
+            if (repose.data.msg == "Logged in Successfully") {
+              setSignedin(true);
+            } else {
+              setSignedin(false);
+            }
           }}
         >
-          <Link to={"/dashboard"}>Sign in</Link>
+          {!signedIn ? (
+            <Link to={"/signin"}>Sign in</Link>
+          ) : (
+            <Link to={"/dashboard"}>Sign in</Link>
+          )}
+
           <BottomGradient />
         </button>
 

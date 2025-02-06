@@ -1,10 +1,23 @@
 "use client";
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Label } from "../components/ui/label";
 import { Input } from "../components/ui/input";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 export function SignupFormDemo() {
+  const [email, setEmail] = useState("");
+
+  const [firstname, setFirstname] = useState("");
+
+  const [lastname, setLastname] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const firstNameref = useRef(firstname);
+  const lastNameref = useRef(lastname);
+  const emailref = useRef(email);
+  const passwordref = useRef(password);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted");
@@ -21,17 +34,39 @@ export function SignupFormDemo() {
       <form className="my-8" onSubmit={handleSubmit}>
         <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
           <LabelInputContainer>
-            <Label htmlFor="firstname">First name</Label>
-            <Input id="firstname" placeholder="Tyler" type="text" />
+            <Label id="x" htmlFor="firstname">
+              First name
+            </Label>
+            <Input
+              ref={firstNameref}
+              onChange={(e) => {
+                setFirstname(e.target.value);
+              }}
+              id="firstname"
+              placeholder="Tyler"
+              type="text"
+            />
           </LabelInputContainer>
           <LabelInputContainer>
             <Label htmlFor="lastname">Last name</Label>
-            <Input id="lastname" placeholder="Durden" type="text" />
+            <Input
+              ref={lastNameref}
+              onChange={(e) => {
+                setLastname(e.target.value);
+              }}
+              id="lastname"
+              placeholder="Durden"
+              type="text"
+            />
           </LabelInputContainer>
         </div>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="email">Email Address</Label>
           <Input
+            ref={emailref}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
             id="email"
             placeholder="firstruleoffightc@fc.com"
             type="email"
@@ -39,14 +74,41 @@ export function SignupFormDemo() {
         </LabelInputContainer>
         <LabelInputContainer className="mb-4">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" placeholder="••••••••" type="password" />
+          <Input
+            ref={passwordref}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
+            id="password"
+            placeholder="••••••••"
+            type="password"
+          />
         </LabelInputContainer>
 
         <button
           className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
           type="submit"
-          onClick={() => {
-            console.log("Button Clicked");
+          onClick={async () => {
+            try {
+              const response = await axios.post(
+                "http://localhost:3002/api/v1/user/signup",
+                {
+                  firstName: firstname,
+                  lastName: lastname,
+                  userName: email,
+                  password: password,
+                }
+              );
+              localStorage.setItem("firstname", firstname);
+              localStorage.setItem("token", response.data.token);
+              firstNameref.current.value = "";
+              lastNameref.current.value = "";
+              emailref.current.value = "";
+              passwordref.current.value = "";
+              alert(response.data.msg);
+            } catch (err) {
+              console.log(err);
+            }
           }}
         >
           Sign up
